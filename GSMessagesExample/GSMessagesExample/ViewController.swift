@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     @IBAction func tapError(sender: AnyObject) {
         showMessage("Something failed", type: .Error, options: nil)
     }
-
+    
     @IBAction func tapWarning(sender: AnyObject) {
         showMessage("Some warning", type: .Warning, options: nil)
     }

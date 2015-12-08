@@ -99,7 +99,7 @@ public class GSMessage {
         }
         
         if autoHide { GCDAfter(autoHideDelay) { self.hide() } }
-
+        
     }
     
     func hide() {
@@ -178,10 +178,10 @@ public class GSMessage {
         switch position {
         case .Top:
             if let inViewController = inViewController {
-                var navigation = inViewController.navigationController ?? (inViewController as? UINavigationController)
-                var navigationBarHidden = (navigation?.navigationBarHidden ?? true)
-                var navigationBarTranslucent = (navigation?.navigationBar.translucent ?? false)
-                var statusBarHidden = UIApplication.sharedApplication().statusBarHidden
+                let navigation = inViewController.navigationController ?? (inViewController as? UINavigationController)
+                let navigationBarHidden = (navigation?.navigationBarHidden ?? true)
+                let navigationBarTranslucent = (navigation?.navigationBar.translucent ?? false)
+                let statusBarHidden = UIApplication.sharedApplication().statusBarHidden
                 if !navigationBarHidden && navigationBarTranslucent && !statusBarHidden { offsetY+=20 }
                 if !navigationBarHidden && navigationBarTranslucent { offsetY+=44; }
                 if (navigationBarHidden && !statusBarHidden) { offsetY+=20 }
@@ -191,7 +191,7 @@ public class GSMessage {
         }
         
         if let inTableViewController = inViewController as? UITableViewController {
-            if let lastWindowView = UIApplication.sharedApplication().windows.last as? UIView {
+            if let lastWindowView = UIApplication.sharedApplication().windows.last {
                 view = lastWindowView
             }
         }
@@ -226,12 +226,12 @@ extension UIView {
     
     private var installedMessage: GSMessage? {
         get { return objc_getAssociatedObject(self, &installedMessageKey) as? GSMessage }
-        set { objc_setAssociatedObject(self, &installedMessageKey, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC)) }
+        set { objc_setAssociatedObject(self, &installedMessageKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)}
     }
     
     private var uninstallMessage: GSMessage? {
         get { return objc_getAssociatedObject(self, &uninstallMessageKey) as? GSMessage }
-        set { objc_setAssociatedObject(self, &uninstallMessageKey, newValue, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC)) }
+        set { objc_setAssociatedObject(self, &uninstallMessageKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
 }
